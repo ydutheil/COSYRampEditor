@@ -1,3 +1,0 @@
-/home/yann/WORK/17_01_24_GUI_COSY/17_01_30_COSY_GUI/RampEditor/Bmad_optics_calcultator/debug/CMakeFiles/rebuild_cache.dir
-/home/yann/WORK/17_01_24_GUI_COSY/17_01_30_COSY_GUI/RampEditor/Bmad_optics_calcultator/debug/CMakeFiles/edit_cache.dir
-/home/yann/WORK/17_01_24_GUI_COSY/17_01_30_COSY_GUI/RampEditor/Bmad_optics_calcultator/debug/CMakeFiles/opticsCALC-exe.dir
