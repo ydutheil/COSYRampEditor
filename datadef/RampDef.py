@@ -81,18 +81,18 @@ class stoneWidget(QtGui.QWidget):
         self.comment = QtGui.QLineEdit()
         self.allQHBoxLayout.addWidget(self.comment)
 
-        self.up = QtGui.QPushButton('up')
-        self.down = QtGui.QPushButton('down')         
-        self.allQHBoxLayout.addWidget(self.up)
-        self.allQHBoxLayout.addWidget(self.down)
+        # self.up = QtGui.QPushButton('up')
+        # self.down = QtGui.QPushButton('down')         
+        # self.allQHBoxLayout.addWidget(self.up)
+        # self.allQHBoxLayout.addWidget(self.down)
         
-        self.copy = QtGui.QPushButton('copy')
-        self.allQHBoxLayout.addWidget(self.copy)
+        # self.copy = QtGui.QPushButton('copy')
+        # self.allQHBoxLayout.addWidget(self.copy)
         
         self.setLayout(self.allQHBoxLayout)
         # setStyleSheet
 
-        
+  
 
         
 
@@ -107,33 +107,6 @@ def Compute_and_set_all (ramp, main) :
     main.Qlist_GeneralRampParm.addItem(  QListWidgetItem( " is %g s long" %ramp.cycleLength))
 
 
-
-    # # Create QCustomQWidget
-    # myQCustomQWidget = QCustomQWidget()
-    # myQCustomQWidget.text.setText('lala')
-    # # Create QListWidgetItem
-    # myQListWidgetItem = QtGui.QListWidgetItem(main.Qlist_StoneManipulator)
-    # # Set size hint
-    # myQListWidgetItem.setSizeHint(myQCustomQWidget.sizeHint())
-    # # Add QListWidgetItem into QListWidget
-    # main.Qlist_StoneManipulator.addItem(myQListWidgetItem)
-    # main.Qlist_StoneManipulator.setItemWidget(myQListWidgetItem, myQCustomQWidget)
-    
-    
-    
-    # for i in range(len(ramp.stoneList)):
-    #     BmadCalc.get_optics( ramp, ramp.stoneList[i] )
-    #     txt = 'Stable' if ramp.stoneList[i].stable else 'Unstable'
-    #     stone = StoneWidget()
-    #     StoneWidget.text.setText( "%i    " %i +"%g MeV/c    " %(ramp.stoneList[i].momentum) +"%8s" %txt )
-
-    #     ListItem = QListWidgetItem(main.Qlist_StoneManipulator)
-    #     myQListWidgetItem.setSizeHint(StoneWidget.sizeHint())
-    # # Add QListWidgetItem into QListWidget
-    # main.Qlist_StoneManipulator.addItem(myQListWidgetItem)
-    # main.Qlist_StoneManipulator.setItemWidget(myQListWidgetItem, myQCustomQWidget)
-    
-    
     
     for i in range(len(ramp.stoneList)):
         BmadCalc.get_optics( ramp, ramp.stoneList[i] )
@@ -149,17 +122,17 @@ def Compute_and_set_all (ramp, main) :
         # item = QListWidgetItem( "%i    " %i +"%g MeV/c    " %(ramp.stoneList[i].momentum) +"%8s" %txt)
         # main.Qlist_StoneManipulator.addItem( item )
 
+
+    def selec_stone( ) :
+        selected_stone_ID = main.Qlist_StoneManipulator.currentRow() #int(np.fromstring( item.text(), sep=' ' )[0])
+        testRamp.selected_stone_ID = selected_stone_ID
+        print 'now selected ', testRamp.selected_stone_ID
+
+    def copy_stone ( ) :
+        print 'laa'
+        
+        
     main.Qlist_StoneManipulator.itemClicked.connect(selec_stone)
-
-def selec_stone( item ) :
-    import numpy as np
-    print type(item)
-    print dir(item)
-    print callable(item)
-    # selected_stone_ID = int(np.fromstring( item.text(), sep=' ' )[0])
-    # testRamp.selected_stone_ID = selected_stone_ID
-    # print 'now selected ', testRamp.selected_stone_ID
-
 
 
 # from PyQt4 import QtGui
@@ -197,6 +170,65 @@ def selec_stone( item ) :
 #         self.sA_lay.addWidget(button)
 #         return
 
+    # # Create QCustomQWidget
+    # myQCustomQWidget = QCustomQWidget()
+    # myQCustomQWidget.text.setText('lala')
+    # # Create QListWidgetItem
+    # myQListWidgetItem = QtGui.QListWidgetItem(main.Qlist_StoneManipulator)
+    # # Set size hint
+    # myQListWidgetItem.setSizeHint(myQCustomQWidget.sizeHint())
+    # # Add QListWidgetItem into QListWidget
+    # main.Qlist_StoneManipulator.addItem(myQListWidgetItem)
+    # main.Qlist_StoneManipulator.setItemWidget(myQListWidgetItem, myQCustomQWidget)
+    
+
+# from PyQt4.QtCore import *
+# from PyQt4.QtGui import *
+
+    # list_data = [1,2,3,4]
+    # lm = MyListModel(list_data)
+    # de = MyDelegate()
+    # main.Qlist_StoneManipulator.setModel(lm)
+    # main.Qlist_StoneManipulator.setItemDelegate(de)
 
 
+# class MyDelegate(QItemDelegate):
+#     def __init__(self, parent=None, *args):
+#         QItemDelegate.__init__(self, parent, *args)
 
+#     # def paint(self, painter, option, index):
+#     #     painter.save()
+
+#     #     # set background color
+#     #     painter.setPen(QPen(Qt.NoPen))
+#     #     if option.state & QStyle.State_Selected:
+#     #         painter.setBrush(QBrush(Qt.red))
+#     #     else:
+#     #         painter.setBrush(QBrush(Qt.white))
+#     #     painter.drawRect(option.rect)
+
+#     #     # set text color
+#     #     painter.setPen(QPen(Qt.black))
+#     #     value = index.data(Qt.DisplayRole)
+#     #     if value.isValid():
+#     #         text = value.toString()
+#     #         painter.drawText(option.rect, Qt.AlignLeft, text)
+
+#     #     painter.restore()
+
+# ####################################################################
+# class MyListModel(QAbstractListModel):
+#     def __init__(self, datain, parent=None, *args):
+#         """ datain: a list where each item is a row
+#         """
+#         QAbstractTableModel.__init__(self, parent, *args)
+#         self.listdata = datain
+
+#     def rowCount(self, parent=QModelIndex()):
+#         return len(self.listdata)
+
+#     def data(self, index, role):
+#         if index.isValid() and role == Qt.DisplayRole:
+#             return QVariant(self.listdata[index.row()])
+#         else:
+#             return QVariant()

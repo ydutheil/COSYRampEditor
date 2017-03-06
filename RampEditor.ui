@@ -59,6 +59,31 @@
             </widget>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="StoneButtons" stretch="0,0,0">
+             <item>
+              <widget class="QPushButton" name="Up">
+               <property name="text">
+                <string>Up</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Down">
+               <property name="text">
+                <string>Down</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Copy">
+               <property name="text">
+                <string>Copy</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QListWidget" name="Qlist_StoneManipulator"/>
            </item>
            <item>
