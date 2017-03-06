@@ -1,3 +1,4 @@
+
 class Ramp:
     def __init__(self, name, cycleLength, particle):
         self.name = name
@@ -57,26 +58,145 @@ def setExampleRamp():
     testRamp.add_stone(testStone)
     # testRamp.printInfos()
 
+
+
+# from PyQt4.uic import loadUiType
     
+# test, qwidget = loadUiType('stoneWidget.ui')
+
+
+import sys
+from PyQt4 import QtGui, QtCore
+
+class stoneWidget(QtGui.QWidget):
+    def __init__ (self, parent = None):
+        super(stoneWidget, self).__init__(parent)
+
+        
+        self.allQHBoxLayout  = QtGui.QHBoxLayout()
+        
+        self.textcell    = QtGui.QLabel()
+        self.allQHBoxLayout.addWidget(self.textcell)
+
+        self.comment = QtGui.QLineEdit()
+        self.allQHBoxLayout.addWidget(self.comment)
+
+        self.up = QtGui.QPushButton('up')
+        self.down = QtGui.QPushButton('down')         
+        self.allQHBoxLayout.addWidget(self.up)
+        self.allQHBoxLayout.addWidget(self.down)
+        
+        self.copy = QtGui.QPushButton('copy')
+        self.allQHBoxLayout.addWidget(self.copy)
+        
+        self.setLayout(self.allQHBoxLayout)
+        # setStyleSheet
+
+        
+
+        
+
 def Compute_and_set_all (ramp, main) :
     from opticsCALC import BmadCalc
-    from PyQt4.QtGui import *
+    from  PyQt4.QtGui import QListWidgetItem
+    from PyQt4 import QtGui
 
     main.Qlist_GeneralRampParm.addItem(  QListWidgetItem( "%s" %ramp.name ))
     main.Qlist_GeneralRampParm.addItem(  QListWidgetItem( "Ramp uses %s" %ramp.particle))
     main.Qlist_GeneralRampParm.addItem(  QListWidgetItem( " contains %i stones" %len(ramp.stoneList)))
     main.Qlist_GeneralRampParm.addItem(  QListWidgetItem( " is %g s long" %ramp.cycleLength))
 
+
+
+    # # Create QCustomQWidget
+    # myQCustomQWidget = QCustomQWidget()
+    # myQCustomQWidget.text.setText('lala')
+    # # Create QListWidgetItem
+    # myQListWidgetItem = QtGui.QListWidgetItem(main.Qlist_StoneManipulator)
+    # # Set size hint
+    # myQListWidgetItem.setSizeHint(myQCustomQWidget.sizeHint())
+    # # Add QListWidgetItem into QListWidget
+    # main.Qlist_StoneManipulator.addItem(myQListWidgetItem)
+    # main.Qlist_StoneManipulator.setItemWidget(myQListWidgetItem, myQCustomQWidget)
+    
+    
+    
+    # for i in range(len(ramp.stoneList)):
+    #     BmadCalc.get_optics( ramp, ramp.stoneList[i] )
+    #     txt = 'Stable' if ramp.stoneList[i].stable else 'Unstable'
+    #     stone = StoneWidget()
+    #     StoneWidget.text.setText( "%i    " %i +"%g MeV/c    " %(ramp.stoneList[i].momentum) +"%8s" %txt )
+
+    #     ListItem = QListWidgetItem(main.Qlist_StoneManipulator)
+    #     myQListWidgetItem.setSizeHint(StoneWidget.sizeHint())
+    # # Add QListWidgetItem into QListWidget
+    # main.Qlist_StoneManipulator.addItem(myQListWidgetItem)
+    # main.Qlist_StoneManipulator.setItemWidget(myQListWidgetItem, myQCustomQWidget)
+    
+    
+    
     for i in range(len(ramp.stoneList)):
         BmadCalc.get_optics( ramp, ramp.stoneList[i] )
         txt = 'Stable' if ramp.stoneList[i].stable else 'Unstable'
-        item = QListWidgetItem( "%i    " %i +"%g MeV/c    " %(ramp.stoneList[i].momentum) +"%8s" %txt)
-        main.Qlist_StoneManipulator.addItem( item )
+        stone = stoneWidget()
+        stone.textcell.setText( "%i    " %i +"%g MeV/c    " %(ramp.stoneList[i].momentum) +"%8s" %txt )
+
+        ListItem = QListWidgetItem(main.Qlist_StoneManipulator)
+        ListItem.setSizeHint(stone.sizeHint())
+        main.Qlist_StoneManipulator.addItem(ListItem)
+        main.Qlist_StoneManipulator.setItemWidget( ListItem, stone )
+        
+        # item = QListWidgetItem( "%i    " %i +"%g MeV/c    " %(ramp.stoneList[i].momentum) +"%8s" %txt)
+        # main.Qlist_StoneManipulator.addItem( item )
 
     main.Qlist_StoneManipulator.itemClicked.connect(selec_stone)
 
 def selec_stone( item ) :
     import numpy as np
-    selected_stone_ID = int(np.fromstring( item.text(), sep=' ' )[0])
-    testRamp.selected_stone_ID = selected_stone_ID
-    print 'now selected ', testRamp.selected_stone_ID
+    print type(item)
+    print dir(item)
+    print callable(item)
+    # selected_stone_ID = int(np.fromstring( item.text(), sep=' ' )[0])
+    # testRamp.selected_stone_ID = selected_stone_ID
+    # print 'now selected ', testRamp.selected_stone_ID
+
+
+
+# from PyQt4 import QtGui
+# import sys
+
+# filenames = []
+
+# class TestGui(QtGui.QWidget):
+#     """ A Fast test gui show how to create buttons in a ScrollArea"""
+#     def __init__(self):
+#         super(TestGui, self).__init__()
+#         self.lay = QtGui.QHBoxLayout()
+#         self.sA = QtGui.QScrollArea()
+#         self.sA_lay = QtGui.QVBoxLayout()
+#         self.sA.setLayout(self.sA_lay)
+#         self.closeGui = QtGui.QPushButton("Close")
+#         self.add_file_button = QtGui.QPushButton("Add File")
+#         self.lay.addWidget(self.closeGui)
+#         self.lay.addWidget(self.add_file_button)
+#         self.lay.addWidget(self.sA)
+#         self.setLayout(self.lay)
+#         self.connect_()
+#         self.show()
+
+#     def connect_(self):
+#         self.add_file_button.clicked.connect(self.__add_file_to_list)
+#         self.closeGui.clicked.connect(self.close)
+#         return
+
+#     def __add_file_to_list(self):
+#         fname = QtGui.QFileDialog.getOpenFileName()
+#         global filenames
+#         filenames.append(fname)
+#         button = QtGui.QPushButton(fname)
+#         self.sA_lay.addWidget(button)
+#         return
+
+
+
+
