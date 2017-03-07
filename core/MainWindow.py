@@ -7,6 +7,8 @@ from matplotlib.backends.backend_qt4agg import (
     NavigationToolbar2QT as NavigationToolbar)
 
 from plots import Plotter
+from datadef import RampDef
+from opticsCALC import BmadCalc
 
 Ui_MainWindow, QMainWindow = loadUiType('RampEditor.ui')
 
@@ -18,7 +20,8 @@ class Main(QMainWindow, Ui_MainWindow):
         self.fig_dict_Ramp = {}
         self.Qlist_PlotSelectorRamp.itemClicked.connect(self.change_plot_ramp)
         self.Qlist_PlotSelectorStone.itemClicked.connect(self.change_plot_stone)
-        
+
+      
         self.figs = {}
         self.canvas = {}
         self.window = {}
@@ -44,12 +47,14 @@ class Main(QMainWindow, Ui_MainWindow):
         self.StoneEditor_mpl_vl.addWidget(self.canvas['StoneEditor'])
         self.StoneEditor_mpl_vl.addWidget(self.toolbar['StoneEditor'])
 
+
+        
     def change_plot_ramp(self, item):
         self.remove_plot('RampEditor')
-        Plotter.make_plot_ramp(self, item.text(), 'RampEditor')
+        Plotter.make_plot_ramp(item.text(), 'RampEditor')
     def change_plot_stone(self, item):
         self.remove_plot('StoneEditor')
-        Plotter.make_plot_stone(self, item.text(), 'StoneEditor')
+        Plotter.make_plot_stone(item.text(), 'StoneEditor')
 
         
     def draw_plot(self, target, data):
@@ -62,15 +67,31 @@ class Main(QMainWindow, Ui_MainWindow):
 
 
 def doIT():
-    from datadef import RampDef
-    from opticsCALC import BmadCalc
-
+    from PyQt4 import QtCore
     
     global main
     main = Main()
     main.show()
 
     RampDef.setExampleRamp()
+
+    main.Up.clicked.connect( RampDef.testRamp.moove_stone_up)
+    main.Down.clicked.connect( RampDef.testRamp.moove_stone_down)
+    main.Remove.clicked.connect( RampDef.testRamp.remove_stone)
+    main.Copy.clicked.connect( RampDef.testRamp.copy_stone)
+    main.Qlist_StoneManipulator.itemClicked.connect(RampDef.selec_stone)
+
+    main.CommentStone.textChanged.connect(RampDef.testRamp.change_comment)
+
+    print 'lala'
+    # main.magnet_strength_changer.locale().setDefault(QtCore.QLocale('C'))
+    # print main.magnet_strength_changer.locale().setNumberOptions()
+    # print main.magnet_strength_changer.locale().decimalPoint()
+    # print type(main.magnet_strength_changer.locale())
+    # print dir(main.magnet_strength_changer.locale())
+    
     RampDef.testRamp.printInfos()
     RampDef.Compute_and_set_all (RampDef.testRamp)
+
+
     

@@ -1,22 +1,25 @@
 from datadef import RampDef
+
 import random
 import numpy as np
 
-def plot_test(main):
+
+def plot_test():
 
     RampDef.testRamp.printInfos()
 
     
-    main.draw_plot('RampEditor',  [random.random() for i in range(10)])
-    main.draw_plot('StoneEditor', [random.random() for i in range(100)])
+    MainWindow.main.draw_plot('RampEditor',  [random.random() for i in range(10)])
+    MainWindow.main.draw_plot('StoneEditor', [random.random() for i in range(100)])
 
-    main.remove_plot('RampEditor')
-    main.draw_plot('RampEditor',  [random.random() for i in range(150)])
+    MainWindow.main.remove_plot('RampEditor')
+    MainWindow.main.draw_plot('RampEditor',  [random.random() for i in range(150)])
 
     
-def make_plot_ramp(main, plot_name, window):
-    ax = main.axs[window] 
-    can  = main.canvas[window]
+def make_plot_ramp(plot_name, window):
+    from core import MainWindow
+    ax = MainWindow.main.axs[window] 
+    can  = MainWindow.main.canvas[window]
 
     Ramp =  RampDef.testRamp
     timings, y1, y2  = [], [], []
@@ -60,9 +63,10 @@ def make_plot_ramp(main, plot_name, window):
         ax.legend()
         can.draw_idle()
 
-def make_plot_stone(main, plot_name, window) :
-    ax = main.axs[window] 
-    can  = main.canvas[window]
+def make_plot_stone(plot_name, window) :
+    from core import MainWindow
+    ax = MainWindow.main.axs[window] 
+    can  = MainWindow.main.canvas[window]
     
     Ramp =  RampDef.testRamp
     Stone = RampDef.testRamp.stoneList[RampDef.testRamp.selected_stone_ID]

@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_RampEditor">
        <attribute name="title">
@@ -41,6 +41,12 @@
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <widget class="QListWidget" name="Qlist_PlotSelectorRamp">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
              <item>
               <property name="text">
                <string>Momentum</string>
@@ -59,10 +65,87 @@
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="Qlist_StoneManipulator"/>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Ramp parameters</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="Qlist_GeneralRampParm"/>
+            <widget class="QListWidget" name="Qlist_GeneralRampParm">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Stone list</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="Qlist_StoneManipulator">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Selected stone details</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="StoneButtons" stretch="0,0,0,0">
+             <item>
+              <widget class="QPushButton" name="Up">
+               <property name="text">
+                <string>Up</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Down">
+               <property name="text">
+                <string>Down</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Copy">
+               <property name="text">
+                <string>Copy</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Remove">
+               <property name="text">
+                <string>Remove</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="CommentStone">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -113,7 +196,75 @@
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="Qlist_QuadManipulator"/>
+            <widget class="QTabWidget" name="tabWidget_2">
+             <property name="currentIndex">
+              <number>1</number>
+             </property>
+             <widget class="QWidget" name="Quad_changer">
+              <attribute name="title">
+               <string>Quadrupoles</string>
+              </attribute>
+              <widget class="QListWidget" name="Qlist_Quadrupoles">
+               <property name="geometry">
+                <rect>
+                 <x>5</x>
+                 <y>1</y>
+                 <width>371</width>
+                 <height>221</height>
+                </rect>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QWidget" name="Sext_changer">
+              <attribute name="title">
+               <string>Sextupoles</string>
+              </attribute>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
+             <property name="bottomMargin">
+              <number>5</number>
+             </property>
+             <item>
+              <widget class="QDoubleSpinBox" name="magnet_strength_changer">
+               <property name="decimals">
+                <number>5</number>
+               </property>
+               <property name="minimum">
+                <double>-10.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>   Step :   </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="Recompute_always">
+             <property name="text">
+              <string>Recompute at every click</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
