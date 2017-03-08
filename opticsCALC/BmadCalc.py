@@ -1,15 +1,18 @@
 from datadef import RampDef
 import subprocess
 import numpy as np
+import timeit
 
 def get_optics( ramp, stone ) :
     # stone = RampDef.testRamp.stoneList[stone_num]
     input_parm = ['./opticscalc']
     input_parm.extend( (str(stone.momentum), ramp.particle) )
     input_parm.extend( [str(i) for i in stone.quads] )
-    
-    output = subprocess.check_output( input_parm ).split("\n")
 
+    # start_time = timeit.default_timer()
+    output = subprocess.check_output( input_parm ).split("\n") 
+    # print timeit.default_timer()-start_time
+    
     N_elements = int(output[len(output)-2])
     if output[len(output)-1-2].strip() == 'failed' :
         stone.stable = False
@@ -24,7 +27,7 @@ def get_optics( ramp, stone ) :
 
 
     stone.optics = np.array(  [np.fromstring(row, sep=' ') for row in np.array (output[len(output)-3-N_elements : len(output)-2])  ] )
-    print stone.timing*1e3, ' ms  done'
+    # print stone.timing*1e3, ' ms  done'
     # print  type(test), test.shape
     # print np.fromstring(test[1], sep=' ' )
     

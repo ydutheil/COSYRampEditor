@@ -173,6 +173,24 @@
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <widget class="QListWidget" name="Qlist_PlotSelectorStone">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
              <item>
               <property name="text">
                <string>Beta</string>
@@ -196,9 +214,32 @@
             </widget>
            </item>
            <item>
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Stone periodic informations</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="textEdit">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>80</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QTabWidget" name="tabWidget_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="Quad_changer">
               <attribute name="title">
@@ -210,8 +251,14 @@
                  <x>5</x>
                  <y>1</y>
                  <width>371</width>
-                 <height>221</height>
+                 <height>281</height>
                 </rect>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
               </widget>
              </widget>
@@ -219,6 +266,16 @@
               <attribute name="title">
                <string>Sextupoles</string>
               </attribute>
+              <widget class="QColumnView" name="columnView">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>371</width>
+                 <height>221</height>
+                </rect>
+               </property>
+              </widget>
              </widget>
             </widget>
            </item>
@@ -248,7 +305,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="QLineEdit" name="Magnet_stepper">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>

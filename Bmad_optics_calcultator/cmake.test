@@ -10,7 +10,7 @@ set (EXENAME opticsCALC)
 # If you want to only use select source files, use the set command:
 #    set (SRC_FILES aaa.f90 bbb.f90 ...)
 
-FILE (GLOB SRC_FILES "*.f90")
+FILE (GLOB SRC_FILES change_val.f90  COMMON_mod.f90  optics.f90)
 
 # Link libraries.
 

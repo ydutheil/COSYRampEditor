@@ -7,6 +7,7 @@ class Ramp:
         self.particle = particle
         self.stoneList = []
         self.selected_stone_ID=0
+        self.selected_magnet=0
         
     def add_stone(self, stone):
         self.stoneList.append(stone)
@@ -118,6 +119,10 @@ def Compute_and_set_all (ramp, compute=True) :
         item = QListWidgetItem( "%i    " %i +"%g MeV/c    " %(ramp.stoneList[i].momentum) +"%8s" %txt)
         MainWindow.main.Qlist_StoneManipulator.addItem( item )
 
+def Compute_stone_and_update (ramp, stone) :
+    from opticsCALC import BmadCalc
+    BmadCalc.get_optics( ramp, stone )
+    
 
 def selec_stone( item ) :
     from core import MainWindow
@@ -125,4 +130,6 @@ def selec_stone( item ) :
     selected_stone_ID = int(np.fromstring( item.text(), sep=' ' )[0])
     testRamp.selected_stone_ID = selected_stone_ID
     MainWindow.main.CommentStone.setPlainText( testRamp.stoneList[testRamp.selected_stone_ID].comment )
-    print 'now selected ', testRamp.selected_stone_ID
+
+
+    

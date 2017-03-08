@@ -9,7 +9,7 @@ from matplotlib.backends.backend_qt4agg import (
 from plots import Plotter
 from datadef import RampDef
 from opticsCALC import BmadCalc
-
+from datadef import StoneEditor
 Ui_MainWindow, QMainWindow = loadUiType('RampEditor.ui')
 
 class Main(QMainWindow, Ui_MainWindow):
@@ -21,6 +21,7 @@ class Main(QMainWindow, Ui_MainWindow):
         self.Qlist_PlotSelectorRamp.itemClicked.connect(self.change_plot_ramp)
         self.Qlist_PlotSelectorStone.itemClicked.connect(self.change_plot_stone)
 
+        self.live_plot_stone = 'Beta'
       
         self.figs = {}
         self.canvas = {}
@@ -54,8 +55,13 @@ class Main(QMainWindow, Ui_MainWindow):
         Plotter.make_plot_ramp(item.text(), 'RampEditor')
     def change_plot_stone(self, item):
         self.remove_plot('StoneEditor')
+        self.live_plot_stone = item.text()
         Plotter.make_plot_stone(item.text(), 'StoneEditor')
 
+    def update_plot_stone(self):
+        self.remove_plot('StoneEditor')
+        Plotter.make_plot_stone(self.live_plot_stone, 'StoneEditor')
+        
         
     def draw_plot(self, target, data):
         self.axs[target].plot(data, '-*')
@@ -82,16 +88,22 @@ def doIT():
     main.Qlist_StoneManipulator.itemClicked.connect(RampDef.selec_stone)
 
     main.CommentStone.textChanged.connect(RampDef.testRamp.change_comment)
+    main.Qlist_Quadrupoles.itemClicked.connect(StoneEditor.select_magnet)
 
-    print 'lala'
-    # main.magnet_strength_changer.locale().setDefault(QtCore.QLocale('C'))
-    # print main.magnet_strength_changer.locale().setNumberOptions()
-    # print main.magnet_strength_changer.locale().decimalPoint()
-    # print type(main.magnet_strength_changer.locale())
-    # print dir(main.magnet_strength_changer.locale())
+    step = 0.001
+    main.magnet_strength_changer.setSingleStep(step)
+    main.Magnet_stepper.setText( str(step) )
+    main.Magnet_stepper.editingFinished.connect( StoneEditor.change_step )
+    main.magnet_strength_changer.valueChanged.connect( StoneEditor.change_value_magnet )
+
     
     RampDef.testRamp.printInfos()
     RampDef.Compute_and_set_all (RampDef.testRamp)
+    StoneEditor.set_list_quads()
+
+
+    
+    
 
 
     

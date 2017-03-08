@@ -29,7 +29,9 @@ real(rp) chromX, chromY, deltaE, momentum
      read(txt100,*) vector(i+8)
   enddo
 
-
+  ! input is
+  ! momentum particle  QTov1 QTov2 QTov3 QTov4 QTov5 QTov6 QTov7 QTov8 QUov1 QUov2 QUov3 QUov4 QUov5 QUov6
+  !
 
 
 ! Programs should always implement "intelligent bookkeeping".
