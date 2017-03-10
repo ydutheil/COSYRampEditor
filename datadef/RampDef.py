@@ -121,15 +121,20 @@ def Compute_and_set_all (ramp, compute=True) :
 
 def Compute_stone_and_update (ramp, stone) :
     from opticsCALC import BmadCalc
+    from datadef import StoneEditor
     BmadCalc.get_optics( ramp, stone )
+    StoneEditor.update_stone_infos_box()
     
 
 def selec_stone( item ) :
     from core import MainWindow
+    from datadef import StoneEditor
     import numpy as np
     selected_stone_ID = int(np.fromstring( item.text(), sep=' ' )[0])
     testRamp.selected_stone_ID = selected_stone_ID
     MainWindow.main.CommentStone.setPlainText( testRamp.stoneList[testRamp.selected_stone_ID].comment )
-
+    StoneEditor.update_stone_infos_box()
+    
+    
 
     

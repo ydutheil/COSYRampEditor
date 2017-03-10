@@ -221,12 +221,15 @@
             </widget>
            </item>
            <item>
-            <widget class="QTextEdit" name="textEdit">
+            <widget class="QTextEdit" name="Stone_infos">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
                <height>80</height>
               </size>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -251,7 +254,7 @@
                  <x>5</x>
                  <y>1</y>
                  <width>371</width>
-                 <height>281</height>
+                 <height>271</height>
                 </rect>
                </property>
                <property name="sizePolicy">

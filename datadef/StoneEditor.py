@@ -63,3 +63,11 @@ def change_value_magnet():
         RampDef.Compute_stone_and_update( RampDef.testRamp, RampDef.testRamp.stoneList[ RampDef.testRamp.selected_stone_ID ] )
         MainWindow.main.update_plot_stone()
         
+
+def update_stone_infos_box():
+    from core import MainWindow
+    from datadef import RampDef
+    text = 'Stable' if RampDef.testRamp.stoneList[RampDef.testRamp.selected_stone_ID].stable else 'Unstable'
+    text += "\r\n"
+    text += "Qx=%5.3f" %RampDef.testRamp.stoneList[RampDef.testRamp.selected_stone_ID].Qx + "  Qy=%5.3f \r\n" %RampDef.testRamp.stoneList[RampDef.testRamp.selected_stone_ID].Qx
+    MainWindow.main.Stone_infos.setPlainText( text )
