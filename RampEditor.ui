@@ -344,8 +344,26 @@
      <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="Save_Ramp"/>
+    <addaction name="Load_Ramp"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="Save_Ramp">
+   <property name="text">
+    <string>Save Ramp</string>
+   </property>
+  </action>
+  <action name="Load_Ramp">
+   <property name="text">
+    <string>Load Ramp</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

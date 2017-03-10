@@ -74,7 +74,7 @@ class Main(QMainWindow, Ui_MainWindow):
 
 def doIT():
     from PyQt4 import QtCore
-    
+    import pickle
     global main
     main = Main()
     main.show()
@@ -100,6 +100,19 @@ def doIT():
     RampDef.testRamp.printInfos()
     RampDef.Compute_and_set_all (RampDef.testRamp)
     StoneEditor.set_list_quads()
+
+    main.Save_Ramp.triggered.connect( save_ramp )
+    
+
+def save_ramp():
+    from PyQt4 import QtGui
+    from datadef import RampDef
+    name = QtGui.QFileDialog.getSaveFileName()
+    file_ramp = open( name , 'w')
+    pickle.dump(RampDef.testRamp, file_ramp)
+
+    file.close()
+    
 
 
     
