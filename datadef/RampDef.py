@@ -84,20 +84,25 @@ class Stone:
         print "    quadrupoles are", self.quads
 
 
-def setExampleRamp():
-    from datadef import RampDef
+# def setExampleRamp():
+#     from datadef import RampDef
     
+#     global testRamp
+#     testRamp = RampDef.Ramp("tesons", 120, "deuteron")
+#     testStone = RampDef.Stone(100, 150e-3, [-0.553299,  0.514285,  0.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
+#     testRamp.add_stone(testStone)
+#     testStone = RampDef.Stone(110, 200e-3, [-0.553299,  0.514285,  0.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
+#     testRamp.add_stone(testStone)
+#     testStone = RampDef.Stone(120, 250e-3, [-0.553299,  0.514285,  0.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
+#     testRamp.add_stone(testStone)
+#     testStone = RampDef.Stone(130, 280e-3, [-0.553299,  0.514285,  0.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
+#     testRamp.add_stone(testStone)
+#     # testRamp.printInfos()
+
+def setRamp(loadedRamp):
+    from datadef import RampDef
     global testRamp
-    testRamp = RampDef.Ramp("tesons", 120, "deuteron")
-    testStone = RampDef.Stone(100, 150e-3, [-0.553299,  0.514285,  0.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
-    testRamp.add_stone(testStone)
-    testStone = RampDef.Stone(110, 200e-3, [-0.553299,  0.514285,  50.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
-    testRamp.add_stone(testStone)
-    testStone = RampDef.Stone(120, 250e-3, [-0.553299,  0.514285,  0.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
-    testRamp.add_stone(testStone)
-    testStone = RampDef.Stone(130, 280e-3, [-0.553299,  0.514285,  0.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
-    testRamp.add_stone(testStone)
-    # testRamp.printInfos()
+    testRamp = loadedRamp
 
     
 def Compute_and_set_all (ramp, compute=True) :

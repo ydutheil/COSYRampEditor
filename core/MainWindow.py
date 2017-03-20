@@ -79,15 +79,10 @@ def doIT():
     main = Main()
     main.show()
 
-    RampDef.setExampleRamp()
+    # RampDef.setExampleRamp()
 
-    main.Up.clicked.connect( RampDef.testRamp.moove_stone_up)
-    main.Down.clicked.connect( RampDef.testRamp.moove_stone_down)
-    main.Remove.clicked.connect( RampDef.testRamp.remove_stone)
-    main.Copy.clicked.connect( RampDef.testRamp.copy_stone)
     main.Qlist_StoneManipulator.itemClicked.connect(RampDef.selec_stone)
 
-    main.CommentStone.textChanged.connect(RampDef.testRamp.change_comment)
     main.Qlist_Quadrupoles.itemClicked.connect(StoneEditor.select_magnet)
 
     step = 0.001
@@ -97,26 +92,42 @@ def doIT():
     main.magnet_strength_changer.valueChanged.connect( StoneEditor.change_value_magnet )
 
     
-    RampDef.testRamp.printInfos()
-    RampDef.Compute_and_set_all (RampDef.testRamp)
-    StoneEditor.set_list_quads()
 
     main.Save_Ramp.triggered.connect( save_ramp )
+    main.Load_Ramp.triggered.connect( load_ramp )
     
 
 def save_ramp():
     from PyQt4 import QtGui
     from datadef import RampDef
+    import pickle
     name = QtGui.QFileDialog.getSaveFileName()
     file_ramp = open( name , 'w')
     pickle.dump(RampDef.testRamp, file_ramp)
 
-    file.close()
-    
+    file_ramp.close()
 
 
-    
+def load_ramp():
+    from PyQt4 import QtGui
+    import pickle
+    name = QtGui.QFileDialog.getOpenFileName()
+    file_ramp = open( name , 'r')
+    RampDef.setRamp(pickle.load( file_ramp))
+
+    file_ramp.close()
+    RampDef.testRamp.printInfos()
+    RampDef.Compute_and_set_all (RampDef.testRamp)
     
 
+    main.Up.clicked.connect( RampDef.testRamp.moove_stone_up)
+    main.Down.clicked.connect( RampDef.testRamp.moove_stone_down)
+    main.Remove.clicked.connect( RampDef.testRamp.remove_stone)
+    main.Copy.clicked.connect( RampDef.testRamp.copy_stone)
 
-    
+    main.CommentStone.textChanged.connect(RampDef.testRamp.change_comment)
+
+    RampDef.testRamp.printInfos()
+    RampDef.Compute_and_set_all (RampDef.testRamp)
+    StoneEditor.set_list_quads()
+
