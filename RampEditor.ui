@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1443</width>
-    <height>718</height>
+    <height>709</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_RampEditor">
        <attribute name="title">
@@ -65,21 +65,90 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Ramp parameters</string>
+            <layout class="QFormLayout" name="Ramp_parameters">
+             <property name="topMargin">
+              <number>5</number>
              </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QListWidget" name="Qlist_GeneralRampParm">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>1</verstretch>
-              </sizepolicy>
-             </property>
-            </widget>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Ramp name</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="RampParm_name"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Particle</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Number of stones</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Length (s)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="RampParm_particle">
+               <item>
+                <property name="text">
+                 <string>proton</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>deuteron</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="RampParm_Nstones">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="RampParm_length">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Stone energy (MeV/c)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="StoneParm_energy"/>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Timing (ms)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLineEdit" name="StoneParm_timing"/>
+             </item>
+            </layout>
            </item>
            <item>
             <widget class="QLabel" name="label_2">
@@ -355,6 +424,7 @@
     </property>
     <addaction name="Save_Ramp"/>
     <addaction name="Load_Ramp"/>
+    <addaction name="Create_new_ramp"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -367,6 +437,11 @@
   <action name="Load_Ramp">
    <property name="text">
     <string>Load Ramp</string>
+   </property>
+  </action>
+  <action name="Create_new_ramp">
+   <property name="text">
+    <string>Create new ramp</string>
    </property>
   </action>
  </widget>

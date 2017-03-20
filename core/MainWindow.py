@@ -81,8 +81,7 @@ def doIT():
 
     # RampDef.setExampleRamp()
 
-    main.Qlist_StoneManipulator.itemClicked.connect(RampDef.selec_stone)
-
+    main.Qlist_StoneManipulator.itemClicked.connect(RampDef.select_stone)
     main.Qlist_Quadrupoles.itemClicked.connect(StoneEditor.select_magnet)
 
     step = 0.001
@@ -95,6 +94,7 @@ def doIT():
 
     main.Save_Ramp.triggered.connect( save_ramp )
     main.Load_Ramp.triggered.connect( load_ramp )
+    main.Create_new_ramp.triggered.connect( NewRamp )
     
 
 def save_ramp():
@@ -114,11 +114,24 @@ def load_ramp():
     name = QtGui.QFileDialog.getOpenFileName()
     file_ramp = open( name , 'r')
     RampDef.setRamp(pickle.load( file_ramp))
-
     file_ramp.close()
-    RampDef.liveRamp.printInfos()
+
     RampDef.Compute_and_set_all (RampDef.liveRamp)
+    connect_ramp_buttons()
     
+
+
+
+def NewRamp():
+    newramp = RampDef.Ramp("tesons", 120, "deuteron")
+    testStone = RampDef.Stone(100, 150e-3, [-0.553299,  0.514285,  0.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
+    newramp.add_stone(testStone)
+    RampDef.setRamp( newramp )
+    RampDef.Compute_and_set_all (RampDef.liveRamp)
+    connect_ramp_buttons()
+
+
+def connect_ramp_buttons() :
 
     main.Up.clicked.connect( RampDef.liveRamp.moove_stone_up)
     main.Down.clicked.connect( RampDef.liveRamp.moove_stone_down)
@@ -131,3 +144,8 @@ def load_ramp():
     RampDef.Compute_and_set_all (RampDef.liveRamp)
     StoneEditor.set_list_quads()
 
+    main.RampParm_particle.currentIndexChanged.connect( RampDef.liveRamp.change_particle )
+    main.RampParm_name.textChanged.connect( RampDef.liveRamp.change_name )
+
+    main.StoneParm_energy.returnPressed.connect( RampDef.change_energy_stone )
+    main.StoneParm_timing.returnPressed.connect( RampDef.change_timing_stone )

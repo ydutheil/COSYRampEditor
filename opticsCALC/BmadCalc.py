@@ -6,7 +6,7 @@ import timeit
 def get_optics(  stone ) :
     # stone = RampDef.liveRamp.stoneList[stone_num]
     input_parm = ['./opticscalc']
-    input_parm.extend( (str(stone.momentum), RampDef.liveRamp.particle) )
+    input_parm.extend( (str(stone.momentum), RampDef.particle_dict_inv[RampDef.liveRamp.particle]) )
     input_parm.extend( [str(i) for i in stone.quads] )
 
     # start_time = timeit.default_timer()
