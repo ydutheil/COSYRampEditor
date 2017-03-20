@@ -16,16 +16,16 @@ if __name__ == '__main__':
     MainWindow.doIT()
     # global main
     # main = Main()
-    # RampDef.testRamp.printInfos()
+    # RampDef.liveRamp.printInfos()
 
-    # # for i in range(len(RampDef.testRamp.stoneList)):
-    # #     BmadCalc.get_optics( RampDef.testRamp, RampDef.testRamp.stoneList[i] )
+    # # for i in range(len(RampDef.liveRamp.stoneList)):
+    # #     BmadCalc.get_optics( RampDef.liveRamp, RampDef.liveRamp.stoneList[i] )
     # # Plotter.plot_test(main)
     
     # # sys.exit()
     # main.show()
 
-    # RampDef.Compute_and_set_all (RampDef.testRamp, main)
+    # RampDef.Compute_and_set_all (RampDef.liveRamp, main)
 
 
     sys.exit(app.exec_())

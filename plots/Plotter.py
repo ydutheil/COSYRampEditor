@@ -6,7 +6,7 @@ import numpy as np
 
 def plot_test():
 
-    RampDef.testRamp.printInfos()
+    RampDef.liveRamp.printInfos()
 
     
     MainWindow.main.draw_plot('RampEditor',  [random.random() for i in range(10)])
@@ -21,7 +21,7 @@ def make_plot_ramp(plot_name, window):
     ax = MainWindow.main.axs[window] 
     can  = MainWindow.main.canvas[window]
 
-    Ramp =  RampDef.testRamp
+    Ramp =  RampDef.liveRamp
     timings, y1, y2  = [], [], []
     for i in range(len(Ramp.stoneList)) :
         timings.append(Ramp.stoneList[i].timing)
@@ -68,8 +68,8 @@ def make_plot_stone(plot_name, window) :
     ax = MainWindow.main.axs[window] 
     can  = MainWindow.main.canvas[window]
     
-    Ramp =  RampDef.testRamp
-    Stone = RampDef.testRamp.stoneList[RampDef.testRamp.selected_stone_ID]
+    Ramp =  RampDef.liveRamp
+    Stone = RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID]
     s, y1, y2 = [], [], []
 
     for i in range(len(Stone.optics)) :

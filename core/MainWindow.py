@@ -103,7 +103,7 @@ def save_ramp():
     import pickle
     name = QtGui.QFileDialog.getSaveFileName()
     file_ramp = open( name , 'w')
-    pickle.dump(RampDef.testRamp, file_ramp)
+    pickle.dump(RampDef.liveRamp, file_ramp)
 
     file_ramp.close()
 
@@ -116,18 +116,18 @@ def load_ramp():
     RampDef.setRamp(pickle.load( file_ramp))
 
     file_ramp.close()
-    RampDef.testRamp.printInfos()
-    RampDef.Compute_and_set_all (RampDef.testRamp)
+    RampDef.liveRamp.printInfos()
+    RampDef.Compute_and_set_all (RampDef.liveRamp)
     
 
-    main.Up.clicked.connect( RampDef.testRamp.moove_stone_up)
-    main.Down.clicked.connect( RampDef.testRamp.moove_stone_down)
-    main.Remove.clicked.connect( RampDef.testRamp.remove_stone)
-    main.Copy.clicked.connect( RampDef.testRamp.copy_stone)
+    main.Up.clicked.connect( RampDef.liveRamp.moove_stone_up)
+    main.Down.clicked.connect( RampDef.liveRamp.moove_stone_down)
+    main.Remove.clicked.connect( RampDef.liveRamp.remove_stone)
+    main.Copy.clicked.connect( RampDef.liveRamp.copy_stone)
 
-    main.CommentStone.textChanged.connect(RampDef.testRamp.change_comment)
+    main.CommentStone.textChanged.connect(RampDef.liveRamp.change_comment)
 
-    RampDef.testRamp.printInfos()
-    RampDef.Compute_and_set_all (RampDef.testRamp)
+    RampDef.liveRamp.printInfos()
+    RampDef.Compute_and_set_all (RampDef.liveRamp)
     StoneEditor.set_list_quads()
 

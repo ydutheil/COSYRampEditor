@@ -23,12 +23,12 @@ def set_list_quads():
     from datadef import RampDef
     from PyQt4.QtGui import QListWidgetItem
     MainWindow.main.Qlist_Quadrupoles.clear()
-    stoneID = RampDef.testRamp.selected_stone_ID 
+    stoneID = RampDef.liveRamp.selected_stone_ID 
     
     for i in inv_quadsDIC :
-        # text = inv_quads[i] + '  ' + r' %+6.4f m-2' %(RampDef.testRamp.stoneList[stoneID].quads[i])
-        text = get_text_magnet(inv_quadsDIC[i],  RampDef.testRamp.stoneList[stoneID].quads[i])
-        # text = r"%6s   %+6.4f m-2" %(inv_quadsDIC[i] , RampDef.testRamp.stoneList[stoneID].quads[i])
+        # text = inv_quads[i] + '  ' + r' %+6.4f m-2' %(RampDef.liveRamp.stoneList[stoneID].quads[i])
+        text = get_text_magnet(inv_quadsDIC[i],  RampDef.liveRamp.stoneList[stoneID].quads[i])
+        # text = r"%6s   %+6.4f m-2" %(inv_quadsDIC[i] , RampDef.liveRamp.stoneList[stoneID].quads[i])
         MainWindow.main.Qlist_Quadrupoles.addItem(  QListWidgetItem( text ) )
 
 def get_text_magnet( magnet_text, value ):
@@ -41,8 +41,8 @@ def select_magnet(item) :
     from datadef import RampDef
     global selected_magnet_item
     selected_magnet_item = item
-    RampDef.testRamp.selected_magnet = str(item.text()).split()[0]
-    MainWindow.main.magnet_strength_changer.setValue( RampDef.testRamp.stoneList[ RampDef.testRamp.selected_stone_ID ].quads[ quadsDIC[RampDef.testRamp.selected_magnet]] )
+    RampDef.liveRamp.selected_magnet = str(item.text()).split()[0]
+    MainWindow.main.magnet_strength_changer.setValue( RampDef.liveRamp.stoneList[ RampDef.liveRamp.selected_stone_ID ].quads[ quadsDIC[RampDef.liveRamp.selected_magnet]] )
                                                       
 def change_step():
     from core import MainWindow
@@ -54,20 +54,20 @@ def change_value_magnet():
     from core import MainWindow
     from datadef import RampDef
     new_value = MainWindow.main.magnet_strength_changer.value()
-    RampDef.testRamp.stoneList[ RampDef.testRamp.selected_stone_ID ].quads[ quadsDIC[RampDef.testRamp.selected_magnet]] = new_value
+    RampDef.liveRamp.stoneList[ RampDef.liveRamp.selected_stone_ID ].quads[ quadsDIC[RampDef.liveRamp.selected_magnet]] = new_value
 
-    text = get_text_magnet( RampDef.testRamp.selected_magnet, new_value )
+    text = get_text_magnet( RampDef.liveRamp.selected_magnet, new_value )
     selected_magnet_item.setText( text )
 
     if ( MainWindow.main.Recompute_always.checkState() == 2 ) :
-        RampDef.Compute_stone_and_update( RampDef.testRamp, RampDef.testRamp.stoneList[ RampDef.testRamp.selected_stone_ID ] )
+        RampDef.Compute_stone_and_update( RampDef.liveRamp.stoneList[ RampDef.liveRamp.selected_stone_ID ] )
         MainWindow.main.update_plot_stone()
         
 
 def update_stone_infos_box():
     from core import MainWindow
     from datadef import RampDef
-    text = 'Stable' if RampDef.testRamp.stoneList[RampDef.testRamp.selected_stone_ID].stable else 'Unstable'
+    text = 'Stable' if RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].stable else 'Unstable'
     text += "\r\n"
-    text += "Qx=%5.3f" %RampDef.testRamp.stoneList[RampDef.testRamp.selected_stone_ID].Qx + "  Qy=%5.3f \r\n" %RampDef.testRamp.stoneList[RampDef.testRamp.selected_stone_ID].Qx
+    text += "Qx=%5.3f" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qx + "  Qy=%5.3f \r\n" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qx
     MainWindow.main.Stone_infos.setPlainText( text )
