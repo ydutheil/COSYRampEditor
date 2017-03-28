@@ -11,6 +11,7 @@ from datadef import RampDef
 from opticsCALC import BmadCalc
 from datadef import StoneEditor
 Ui_MainWindow, QMainWindow = loadUiType('RampEditor.ui')
+from PyQt4 import QtCore, QtGui
 
 class Main(QMainWindow, Ui_MainWindow):
     def __init__(self, ):
@@ -84,11 +85,18 @@ def doIT():
     main.Qlist_StoneManipulator.itemClicked.connect(RampDef.select_stone)
     main.Qlist_Quadrupoles.itemClicked.connect(StoneEditor.select_magnet)
 
+    main.magnet_strength_changer = MyDoubleSpinBox(main.stepper)
+    main.magnet_strength_changer.setDecimals(5)
+    main.magnet_strength_changer.setMinimum(-10.0)
+    main.magnet_strength_changer.setMaximum(10.0)
+    main.magnet_strength_changer.setObjectName("magnet_strength_changer")
+    main.stepper_layout.addWidget(main.magnet_strength_changer)
+
     step = 0.001
     main.magnet_strength_changer.setSingleStep(step)
     main.Magnet_stepper.setText( str(step) )
     main.Magnet_stepper.editingFinished.connect( StoneEditor.change_step )
-    main.magnet_strength_changer.valueChanged.connect( StoneEditor.change_value_magnet )
+    main.magnet_strength_changer.valueChanged.connect( StoneEditor.trigger_changed_magnet_value)
 
     
 
@@ -149,3 +157,18 @@ def connect_ramp_buttons() :
 
     main.StoneParm_energy.returnPressed.connect( RampDef.change_energy_stone )
     main.StoneParm_timing.returnPressed.connect( RampDef.change_timing_stone )
+
+    main.Qcombo_quads_link.currentIndexChanged.connect( StoneEditor.changeQuadsHooks )
+
+
+# redifined a personal QDoubleSpinBox due to double event trigger when the computation (here caomputation of the optics by Bmad) takes too long
+# http://www.qtcentre.org/archive/index.php/t-43078.html
+# It behaves exactly like QDoubleSpinBox but I redifine the timerEvent and do nothing with it
+# consequence : event only triggered once when click stays pushed
+class MyDoubleSpinBox (QtGui.QDoubleSpinBox):
+
+    def __init__(self, *args, **kwargs):
+        QtGui.QDoubleSpinBox.__init__(self, *args, **kwargs)
+
+    def timerEvent( self, dummy ):
+        pass

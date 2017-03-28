@@ -70,7 +70,12 @@ class Ramp:
 
     def change_name( self, new_name) :
         self.name = new_name
-    
+
+    def get_M0( self ) : #return particle rest mass in MeV
+        if self.particle == 0 : #proton
+            return 938.2720813
+        elif self.particle == 1 : #deuteron
+            return 1875.612928
         
 
 class Stone:

@@ -63,6 +63,21 @@ def make_plot_ramp(plot_name, window):
         ax.legend()
         can.draw_idle()
 
+    elif plot_name == 'Gamma transition' :
+        gamma = lambda p : np.sqrt( 1 + (p/Ramp.get_M0())**2)
+        for i in range(len(Ramp.stoneList)) :
+            y1.append( gamma(Ramp.stoneList[i].momentum))
+            y2.append(Ramp.stoneList[i].gammaTR)
+        print y1
+        ax.plot(timings, y1, '--x', label='gamma', markersize=12)
+        ax.plot(timings, y2, '--+', label='gamma transition', markersize=12)
+        ax.grid(True)
+        ax.set_xlabel('Timing (ms)')
+        ax.set_ylabel('Gamma')
+        ax.legend()
+        can.draw_idle()
+        
+
 def make_plot_stone(plot_name, window) :
     from core import MainWindow
     ax = MainWindow.main.axs[window] 
