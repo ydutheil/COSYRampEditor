@@ -4,6 +4,7 @@ import numpy as np
 import timeit
 
 def get_optics(  stone ) :
+    print "computing"
     # stone = RampDef.liveRamp.stoneList[stone_num]
     input_parm = ['./opticscalc']
     input_parm.extend( (str(stone.momentum), RampDef.particle_dict_inv[RampDef.liveRamp.particle]) )

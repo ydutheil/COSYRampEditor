@@ -156,11 +156,25 @@
             </layout>
            </item>
            <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Stone list</string>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <property name="topMargin">
+              <number>5</number>
              </property>
-            </widget>
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Stone list</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="RecomputeRampNow">
+               <property name="text">
+                <string>Recompute All</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <widget class="QListWidget" name="Qlist_StoneManipulator">
@@ -405,11 +419,25 @@
             </layout>
            </item>
            <item>
-            <widget class="QCheckBox" name="Recompute_always">
-             <property name="text">
-              <string>Recompute at every click</string>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <property name="topMargin">
+              <number>5</number>
              </property>
-            </widget>
+             <item>
+              <widget class="QCheckBox" name="Recompute_always">
+               <property name="text">
+                <string>Recompute at every click</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="RecomputeStoneNow">
+               <property name="text">
+                <string>Recompute Stone</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>

@@ -124,7 +124,8 @@ def Compute_and_set_all (ramp, compute=True) :
     from opticsCALC import BmadCalc
     from PyQt4.QtGui import QListWidgetItem
     from core import MainWindow
-
+    print "called", ramp
+    print compute
     
     MainWindow.main.RampParm_name.setText( "%s" %ramp.name )
     MainWindow.main.RampParm_particle.setCurrentIndex( ramp.particle )
@@ -140,12 +141,15 @@ def Compute_and_set_all (ramp, compute=True) :
         item = QListWidgetItem( "%i    " %i +"%g MeV/c    " %(ramp.stoneList[i].momentum)  + " at %g ms" %(ramp.stoneList[i].timing*1000) +"%8s" %txt )
         MainWindow.main.Qlist_StoneManipulator.addItem( item )
 
+    MainWindow.main.update_plot_ramp()
+        
 def Compute_stone_and_update (stone) :
     from opticsCALC import BmadCalc
     from datadef import StoneEditor
+    from core import MainWindow
     BmadCalc.get_optics( stone )
     StoneEditor.update_stone_infos_box()
-    
+    MainWindow.main.update_plot_stone()
 
 def select_stone( item ) :
     from core import MainWindow
@@ -159,6 +163,6 @@ def select_stone( item ) :
     MainWindow.main.StoneParm_energy.setText( "%g" %liveRamp.stoneList[liveRamp.selected_stone_ID].momentum )
     MainWindow.main.StoneParm_timing.setText( "%g" %(liveRamp.stoneList[liveRamp.selected_stone_ID].timing*1000) )
     
-    
+    StoneEditor.set_list_quads()
 
     

@@ -94,7 +94,7 @@ def update_stone_infos_box():
     from datadef import RampDef
     text = 'Stable' if RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].stable else 'Unstable'
     text += "\r\n"
-    text += "Qx=%5.3f" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qx + "  Qy=%5.3f \r\n" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qx
+    text += "Qx=%5.3f" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qx + "  Qy=%5.3f \r\n" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qy
     MainWindow.main.Stone_infos.setPlainText( text )
 
 

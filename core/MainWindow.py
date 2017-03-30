@@ -23,6 +23,7 @@ class Main(QMainWindow, Ui_MainWindow):
         self.Qlist_PlotSelectorStone.itemClicked.connect(self.change_plot_stone)
 
         self.live_plot_stone = 'Beta'
+        self.live_plot_ramp = 'Momentum'
       
         self.figs = {}
         self.canvas = {}
@@ -53,6 +54,7 @@ class Main(QMainWindow, Ui_MainWindow):
         
     def change_plot_ramp(self, item):
         self.remove_plot('RampEditor')
+        self.live_plot_ramp = item.text()
         Plotter.make_plot_ramp(item.text(), 'RampEditor')
     def change_plot_stone(self, item):
         self.remove_plot('StoneEditor')
@@ -62,7 +64,11 @@ class Main(QMainWindow, Ui_MainWindow):
     def update_plot_stone(self):
         self.remove_plot('StoneEditor')
         Plotter.make_plot_stone(self.live_plot_stone, 'StoneEditor')
-        
+
+    def update_plot_ramp(self):
+        self.remove_plot('RampEditor')
+        Plotter.make_plot_ramp(self.live_plot_ramp, 'RampEditor')
+
         
     def draw_plot(self, target, data):
         self.axs[target].plot(data, '-*')
@@ -103,6 +109,7 @@ def doIT():
     main.Save_Ramp.triggered.connect( save_ramp )
     main.Load_Ramp.triggered.connect( load_ramp )
     main.Create_new_ramp.triggered.connect( NewRamp )
+
     
 
 def save_ramp():
@@ -160,15 +167,16 @@ def connect_ramp_buttons() :
 
     main.Qcombo_quads_link.currentIndexChanged.connect( StoneEditor.changeQuadsHooks )
 
+    main.RecomputeRampNow.clicked.connect( lambda signal : RampDef.Compute_and_set_all( RampDef.liveRamp ) )
+    main.RecomputeStoneNow.clicked.connect( lambda signal : RampDef.Compute_stone_and_update( RampDef.liveRamp.stoneList[ RampDef.liveRamp.selected_stone_ID ] ) )
+
+    
 
 # redifined a personal QDoubleSpinBox due to double event trigger when the computation (here caomputation of the optics by Bmad) takes too long
 # http://www.qtcentre.org/archive/index.php/t-43078.html
 # It behaves exactly like QDoubleSpinBox but I redifine the timerEvent and do nothing with it
 # consequence : event only triggered once when click stays pushed
 class MyDoubleSpinBox (QtGui.QDoubleSpinBox):
-
-    def __init__(self, *args, **kwargs):
-        QtGui.QDoubleSpinBox.__init__(self, *args, **kwargs)
 
     def timerEvent( self, dummy ):
         pass
