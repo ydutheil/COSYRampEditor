@@ -83,12 +83,14 @@ def doIT():
     from PyQt4 import QtCore
     import pickle
     global main
+    import numpy as np
     main = Main()
     main.show()
 
     # RampDef.setExampleRamp()
 
-    main.Qlist_StoneManipulator.itemClicked.connect(RampDef.select_stone)
+    # main.Qlist_StoneManipulator.itemClicked.connect(RampDef.select_stone)
+    main.Qlist_StoneManipulator.itemClicked.connect( lambda item : RampDef.select_stone( int(np.fromstring( item.text(), sep=' ' )[0]) ) )
     main.Qlist_Quadrupoles.itemClicked.connect(StoneEditor.select_magnet)
 
     main.magnet_strength_changer = MyDoubleSpinBox(main.stepper)
@@ -104,7 +106,7 @@ def doIT():
     main.Magnet_stepper.editingFinished.connect( StoneEditor.change_step )
     main.magnet_strength_changer.valueChanged.connect( StoneEditor.trigger_changed_magnet_value)
 
-    
+    main.spinBox_stone.valueChanged.connect( RampDef.select_stone  )
 
     main.Save_Ramp.triggered.connect( save_ramp )
     main.Load_Ramp.triggered.connect( load_ramp )

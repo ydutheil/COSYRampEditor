@@ -68,7 +68,6 @@ def make_plot_ramp(plot_name, window):
         for i in range(len(Ramp.stoneList)) :
             y1.append( gamma(Ramp.stoneList[i].momentum))
             y2.append(Ramp.stoneList[i].gammaTR)
-        print y1
         ax.plot(timings, y1, '--x', label='gamma', markersize=12)
         ax.plot(timings, y2, '--+', label='gamma transition', markersize=12)
         ax.grid(True)

@@ -91,12 +91,26 @@ def set_magnet_value(magnetNAME, value, force_recompute=False, force_norecompute
         
 def update_stone_infos_box():
     from core import MainWindow
+    from PyQt4 import QtGui, QtCore
     from datadef import RampDef
-    text = 'Stable' if RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].stable else 'Unstable'
-    text += "\r\n"
-    text += "Qx=%5.3f" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qx + "  Qy=%5.3f \r\n" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qy
-    MainWindow.main.Stone_infos.setPlainText( text )
 
+    if RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].stable is True :
+        MainWindow.main.Stone_Qx.setText( "%6.4f"  %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qx)
+        MainWindow.main.Stone_Qx.setStyleSheet("QLineEdit { background-color : white; }")
+        MainWindow.main.Stone_Qy.setText( "%6.4f"  %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qy)
+        MainWindow.main.Stone_Qy.setStyleSheet("QLineEdit { background-color : white; }")
+    else :
+        MainWindow.main.Stone_Qx.setText( "Unstable")
+        MainWindow.main.Stone_Qx.setStyleSheet("QLineEdit { background-color : red; }")
+        MainWindow.main.Stone_Qy.setText( "Unstable")
+        MainWindow.main.Stone_Qy.setStyleSheet("QLineEdit { background-color : red; }")
+
+    MainWindow.main.Stone_Qpx.setText( "%6.4f"  %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qpx)
+    MainWindow.main.Stone_Qpy.setText( "%6.4f"  %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qpy)
+    MainWindow.main.Stone_pc.setText( "%g MeV/c" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].momentum )
+    MainWindow.main.Stone_time.setText( "%g ms" %(RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].timing*1000) )
+    MainWindow.main.spinBox_stone.setValue( RampDef.liveRamp.selected_stone_ID )
+    
 
 # hooks ID are
 # 0 for no hooks

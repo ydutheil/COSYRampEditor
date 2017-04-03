@@ -124,8 +124,6 @@ def Compute_and_set_all (ramp, compute=True) :
     from opticsCALC import BmadCalc
     from PyQt4.QtGui import QListWidgetItem
     from core import MainWindow
-    print "called", ramp
-    print compute
     
     MainWindow.main.RampParm_name.setText( "%s" %ramp.name )
     MainWindow.main.RampParm_particle.setCurrentIndex( ramp.particle )
@@ -151,11 +149,9 @@ def Compute_stone_and_update (stone) :
     StoneEditor.update_stone_infos_box()
     MainWindow.main.update_plot_stone()
 
-def select_stone( item ) :
+def select_stone( selected_stone_ID ) :
     from core import MainWindow
     from datadef import StoneEditor
-    import numpy as np
-    selected_stone_ID = int(np.fromstring( item.text(), sep=' ' )[0])
     liveRamp.selected_stone_ID = selected_stone_ID
     MainWindow.main.CommentStone.setPlainText( liveRamp.stoneList[liveRamp.selected_stone_ID].comment )
     StoneEditor.update_stone_infos_box()
@@ -164,5 +160,6 @@ def select_stone( item ) :
     MainWindow.main.StoneParm_timing.setText( "%g" %(liveRamp.stoneList[liveRamp.selected_stone_ID].timing*1000) )
     
     StoneEditor.set_list_quads()
+    MainWindow.main.update_plot_stone()
 
     

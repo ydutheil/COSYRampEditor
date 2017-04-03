@@ -17,17 +17,16 @@ def get_optics(  stone ) :
     N_elements = int(output[len(output)-2])
     if output[len(output)-1-2].strip() == 'failed' :
         stone.stable = False
+        stone.gammaTR, stone.Qpx, stone.Qpy, stone.optics = 0, 0, 0, 0
         return
     else :
         stone.stable = True
+        stone.gammaTR =  float(output[len(output)-1-2-N_elements-3])
+        dumm, stone.Qpx, stone.Qpy = np.fromstring(output[len(output)-1-2-N_elements-2], sep=' ')
+        stone.Qx, stone.Qy = np.fromstring(output[len(output)-1-2-N_elements-1], sep=' ')
 
 
-    stone.gammaTR =  float(output[len(output)-1-2-N_elements-3])
-    dumm, stone.Qpx, stone.Qpy = np.fromstring(output[len(output)-1-2-N_elements-2], sep=' ')
-    stone.Qx, stone.Qy = np.fromstring(output[len(output)-1-2-N_elements-1], sep=' ')
-
-
-    stone.optics = np.array(  [np.fromstring(row, sep=' ') for row in np.array (output[len(output)-3-N_elements : len(output)-2])  ] )
+        stone.optics = np.array(  [np.fromstring(row, sep=' ') for row in np.array (output[len(output)-3-N_elements : len(output)-2])  ] )
     # print stone.timing*1e3, ' ms  done'
     # print  type(test), test.shape
     # print np.fromstring(test[1], sep=' ' )

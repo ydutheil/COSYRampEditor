@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1443</width>
-    <height>709</height>
+    <height>759</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -260,65 +260,120 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QListWidget" name="Qlist_PlotSelectorStone">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+            <widget class="QTabWidget" name="tabWidget_3">
+             <property name="currentIndex">
+              <number>1</number>
              </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>100</height>
-              </size>
-             </property>
-             <property name="baseSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <item>
-              <property name="text">
-               <string>Beta</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Dispersion</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Phi</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Alpha</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_5">
-             <property name="text">
-              <string>Stone periodic informations</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QTextEdit" name="Stone_infos">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>80</height>
-              </size>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
+             <widget class="QWidget" name="tab_2">
+              <attribute name="title">
+               <string>Plots</string>
+              </attribute>
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <item>
+                  <widget class="QListWidget" name="Qlist_PlotSelectorStone">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>100</height>
+                    </size>
+                   </property>
+                   <property name="baseSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Beta</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Dispersion</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Phi</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Alpha</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="tab_3">
+              <attribute name="title">
+               <string>Parameters</string>
+              </attribute>
+              <layout class="QGridLayout" name="gridLayout_3">
+               <item row="0" column="0">
+                <layout class="QGridLayout" name="gridLayout_2">
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_11">
+                   <property name="text">
+                    <string>Chroma</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QLineEdit" name="Stone_time"/>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLineEdit" name="Stone_pc"/>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLineEdit" name="Stone_Qpx"/>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
+                    <string>Tune</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QLineEdit" name="Stone_Qy"/>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLineEdit" name="Stone_Qx"/>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLineEdit" name="Stone_Qpy"/>
+                 </item>
+                 <item row="2" column="2">
+                  <layout class="QHBoxLayout" name="horizontalLayout_9">
+                   <item>
+                    <widget class="QLabel" name="label_12">
+                     <property name="text">
+                      <string>Stone</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QSpinBox" name="spinBox_stone"/>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
             </widget>
            </item>
            <item>
