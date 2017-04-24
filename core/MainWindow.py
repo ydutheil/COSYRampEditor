@@ -1,17 +1,18 @@
-from PyQt4.uic import loadUiType
-
-import random
+from PyQt5.uic import loadUiType
+from PyQt5 import QtCore, QtGui, QtWidgets
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt4agg import (
+from matplotlib.backends.backend_qt5agg import (
     FigureCanvasQTAgg as FigureCanvas,
     NavigationToolbar2QT as NavigationToolbar)
+import pickle
 
 from plots import Plotter
 from datadef import RampDef
 from opticsCALC import BmadCalc
 from datadef import StoneEditor
+
+
 Ui_MainWindow, QMainWindow = loadUiType('RampEditor.ui')
-from PyQt4 import QtCore, QtGui
 
 class Main(QMainWindow, Ui_MainWindow):
     def __init__(self, ):
@@ -64,12 +65,10 @@ class Main(QMainWindow, Ui_MainWindow):
     def update_plot_stone(self):
         self.remove_plot('StoneEditor')
         Plotter.make_plot_stone(self.live_plot_stone, 'StoneEditor')
-
     def update_plot_ramp(self):
         self.remove_plot('RampEditor')
         Plotter.make_plot_ramp(self.live_plot_ramp, 'RampEditor')
 
-        
     def draw_plot(self, target, data):
         self.axs[target].plot(data, '-*')
         self.axs[target].grid(True)
@@ -80,16 +79,16 @@ class Main(QMainWindow, Ui_MainWindow):
 
 
 def doIT():
-    from PyQt4 import QtCore
-    import pickle
-    global main
+    """ 
+    First function called
+    Set some objects and connecst signal to general functions
+    """
     import numpy as np
+
+    global main
     main = Main()
     main.show()
 
-    # RampDef.setExampleRamp()
-
-    # main.Qlist_StoneManipulator.itemClicked.connect(RampDef.select_stone)
     main.Qlist_StoneManipulator.itemClicked.connect( lambda item : RampDef.select_stone( int(np.fromstring( item.text(), sep=' ' )[0]) ) )
     main.Qlist_Quadrupoles.itemClicked.connect(StoneEditor.select_magnet)
 
@@ -99,6 +98,10 @@ def doIT():
     main.magnet_strength_changer.setMaximum(10.0)
     main.magnet_strength_changer.setObjectName("magnet_strength_changer")
     main.stepper_layout.addWidget(main.magnet_strength_changer)
+
+    main.spinBox_stone = MySpinBox( main.stoneStepper )
+    main.spinBox_stone.setObjectName("spinBox_stone")
+    main.stoneStepper_layout.addWidget(main.spinBox_stone)
 
     step = 0.001
     main.magnet_strength_changer.setSingleStep(step)
@@ -115,21 +118,19 @@ def doIT():
     
 
 def save_ramp():
-    from PyQt4 import QtGui
+    """ Connected to Menu save ramp """
     from datadef import RampDef
-    import pickle
-    name = QtGui.QFileDialog.getSaveFileName()
-    file_ramp = open( name , 'w')
+    name = QtWidgets.QFileDialog.getSaveFileName()
+    file_ramp = open( name[0] , 'wb')
     pickle.dump(RampDef.liveRamp, file_ramp)
 
     file_ramp.close()
 
 
 def load_ramp():
-    from PyQt4 import QtGui
-    import pickle
-    name = QtGui.QFileDialog.getOpenFileName()
-    file_ramp = open( name , 'r')
+    """ Connected to Menu load ramp """
+    name = QtWidgets.QFileDialog.getOpenFileName()
+    file_ramp = open( name[0] , 'rb')
     RampDef.setRamp(pickle.load( file_ramp))
     file_ramp.close()
 
@@ -140,6 +141,7 @@ def load_ramp():
 
 
 def NewRamp():
+    """ Connected to Menu new ramp, generates a single stable stone """
     newramp = RampDef.Ramp("tesons", 120, "deuteron")
     testStone = RampDef.Stone(100, 150e-3, [-0.553299,  0.514285,  0.730639,  -0.67389,  -0.629671156,  0.579184782,  -0.622108141,  0.579169937,  -0.25,  0.322,  -0.25,  0.43,  -0.25,  0.322])
     newramp.add_stone(testStone)
@@ -149,7 +151,10 @@ def NewRamp():
 
 
 def connect_ramp_buttons() :
-
+    """
+    Function called after the ramp is initialized
+    links signals to the Ramp methods once it is created
+    """
     main.Up.clicked.connect( RampDef.liveRamp.moove_stone_up)
     main.Down.clicked.connect( RampDef.liveRamp.moove_stone_down)
     main.Remove.clicked.connect( RampDef.liveRamp.remove_stone)
@@ -178,7 +183,15 @@ def connect_ramp_buttons() :
 # http://www.qtcentre.org/archive/index.php/t-43078.html
 # It behaves exactly like QDoubleSpinBox but I redifine the timerEvent and do nothing with it
 # consequence : event only triggered once when click stays pushed
-class MyDoubleSpinBox (QtGui.QDoubleSpinBox):
+class MyDoubleSpinBox (QtWidgets.QDoubleSpinBox):
 
     def timerEvent( self, dummy ):
         pass
+
+
+class MySpinBox (    QtWidgets.QSpinBox ) :
+
+    def timerEvent( self, dummy ):
+        pass
+
+    

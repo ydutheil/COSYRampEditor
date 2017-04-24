@@ -1,14 +1,12 @@
-from datadef import RampDef
-
-import random
 import numpy as np
 
+from datadef import RampDef
 
 def plot_test():
-
+    from core import MainWindow
+    import random
     RampDef.liveRamp.printInfos()
 
-    
     MainWindow.main.draw_plot('RampEditor',  [random.random() for i in range(10)])
     MainWindow.main.draw_plot('StoneEditor', [random.random() for i in range(100)])
 
@@ -18,6 +16,7 @@ def plot_test():
     
 def make_plot_ramp(plot_name, window):
     from core import MainWindow
+
     ax = MainWindow.main.axs[window] 
     can  = MainWindow.main.canvas[window]
 
@@ -79,6 +78,8 @@ def make_plot_ramp(plot_name, window):
 
 def make_plot_stone(plot_name, window) :
     from core import MainWindow
+
+
     ax = MainWindow.main.axs[window] 
     can  = MainWindow.main.canvas[window]
     
@@ -86,6 +87,10 @@ def make_plot_stone(plot_name, window) :
     Stone = RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID]
     s, y1, y2 = [], [], []
 
+    if( Stone.stable == False ) :
+        can.draw_idle()
+        return
+    
     for i in range(len(Stone.optics)) :
         s.append(Stone.optics[i,1])
 
@@ -142,33 +147,6 @@ def make_plot_stone(plot_name, window) :
         can.draw_idle()
         
         
-    
-
-    
-    # for i in range(len(
-    
-    # if plot_name == 'Beta'  :
-            
-    
-    # for i in range(len(stone.optics
-    
-    # if plot_name == 'Rigidity'  :
-        
-    #     name1 = 'Rigidity'
-    #     main.axs[window].plot(np.random.rand(5), '-*')
-    #     main.axs[window].grid(True)
-    #     main.axs[window].set_title('Ridity')
-    #     main.canvas[window].draw_idle()
-        
-
-    # elif plot_name == 'Tune' :
-        
-
-    #     # make plot of tune
-    #     name1 = 'Rigidity'
-    #     fig1 = Figure()
-    #     ax1f1 = fig1.add_subplot(111)
-    #     ax1f1.plot(np.random.rand(10))
         
 
     

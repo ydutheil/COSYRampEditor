@@ -1,23 +1,22 @@
-from datadef import RampDef
 import subprocess
 import numpy as np
-import timeit
+
+from datadef import RampDef
 
 def get_optics(  stone ) :
-    print "computing"
+    print ("computing")
     # stone = RampDef.liveRamp.stoneList[stone_num]
     input_parm = ['./opticscalc']
     input_parm.extend( (str(stone.momentum), RampDef.particle_dict_inv[RampDef.liveRamp.particle]) )
     input_parm.extend( [str(i) for i in stone.quads] )
 
     # start_time = timeit.default_timer()
-    output = subprocess.check_output( input_parm ).split("\n") 
+    output = str(subprocess.check_output( input_parm )).split("\\n") 
     # print timeit.default_timer()-start_time
-    
     N_elements = int(output[len(output)-2])
     if output[len(output)-1-2].strip() == 'failed' :
         stone.stable = False
-        stone.gammaTR, stone.Qpx, stone.Qpy, stone.optics = 0, 0, 0, 0
+        stone.gammaTR, stone.Qpx, stone.Qpy, stone.optics = 0, 0, 0, [0]
         return
     else :
         stone.stable = True
@@ -27,18 +26,5 @@ def get_optics(  stone ) :
 
 
         stone.optics = np.array(  [np.fromstring(row, sep=' ') for row in np.array (output[len(output)-3-N_elements : len(output)-2])  ] )
-    # print stone.timing*1e3, ' ms  done'
-    # print  type(test), test.shape
-    # print np.fromstring(test[1], sep=' ' )
-    
-    
-    # for i in range(N_elements) :
-        
 
-    # a = np.array([[float(j) for j in i.split('\t')] for i in b.splitlines()])
-
-
-    # print np.array( [[ float(j) for j in i.split   (output[len(output)-3-N_elements : len(output)-2], sep=' ')
-    # print output[len(output)-3-N_elements : len(output)-2]
-    # print output[len(output)-2-N_elements]
-    # print output[len(output)-2]
+ 

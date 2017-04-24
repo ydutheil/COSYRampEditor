@@ -1,17 +1,16 @@
-#!/home/yann//VirtualENVs/Main/bin/python2.7 
-
+#!/home/yann/VirtualENVs/Python3.5.2_main/bin/python
 
         
 
 if __name__ == '__main__':
     import sys
-    from PyQt4 import QtGui
+    from PyQt5 import QtGui, QtWidgets
     from core import MainWindow
     
     # RampDef.setExampleRamp()
     
     
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
 
     MainWindow.doIT()
     # global main

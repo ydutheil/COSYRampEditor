@@ -1,4 +1,4 @@
-from PyQt4 import QtCore
+from PyQt5 import QtCore
 import copy
 
 # global particle_dict
@@ -7,7 +7,7 @@ particle_dict = {
     'proton'   : 0 ,
     'deuteron' : 1
 }
-particle_dict_inv = {v: k for k, v in particle_dict.iteritems()}
+particle_dict_inv = {v: k for k, v in particle_dict.items()}
 
 class Ramp:
     def __init__(self, name, cycleLength, particle):
@@ -53,12 +53,12 @@ class Ramp:
         self.stoneList[self.selected_stone_ID+1].comment = "*** copy *** \r\n" + self.stoneList[self.selected_stone_ID+1].comment
         
     def printInfos(self):
-        print "Ramp name is ", self.name
-        print "duration is ", self.cycleLength
-        print "particle is ", self.particle
-        print "number of stones is ", len(self.stoneList)
+        print ("Ramp name is {}".format( self.name) )
+        print ("duration is {}".format( self.cycleLength) )
+        print ("particle is {}".format( self.particle) )
+        print ("number of stones is {}".format( len(self.stoneList)) )
         for i in range(len(self.stoneList)):
-            print "stone ", i
+            print ("stone {}".format( i) )
             self.stoneList[i].printInfos()
 
     def change_comment(self) :
@@ -93,15 +93,16 @@ class Stone:
         self.optics = optics
         self.stable = stable
         self.comment = "none"
+        self.quad_link = 0
 
 # optics is
 # i, s,  X_beta, Y_beta, X_alpha, Y_alpha, X_phi, Y_phi, X_eta, X_etap
 # 0  1    2        3        4       5        6     7      8       9
         
     def printInfos(self):
-        print "    name is ", self.name
-        print "    momentum is", self.momentum
-        print "    quadrupoles are", self.quads
+        print ("    name is {} ".format( self.name) )
+        print ("    momentum is {}".format( self.momentum) )
+        print ("    quadrupoles are {}".format( self.quads) )
 
 def change_energy_stone() :
     from core import MainWindow
@@ -122,7 +123,7 @@ def setRamp(loadedRamp):
     
 def Compute_and_set_all (ramp, compute=True) :
     from opticsCALC import BmadCalc
-    from PyQt4.QtGui import QListWidgetItem
+    from PyQt5.QtWidgets import QListWidgetItem
     from core import MainWindow
     
     MainWindow.main.RampParm_name.setText( "%s" %ramp.name )
@@ -152,6 +153,7 @@ def Compute_stone_and_update (stone) :
 def select_stone( selected_stone_ID ) :
     from core import MainWindow
     from datadef import StoneEditor
+
     liveRamp.selected_stone_ID = selected_stone_ID
     MainWindow.main.CommentStone.setPlainText( liveRamp.stoneList[liveRamp.selected_stone_ID].comment )
     StoneEditor.update_stone_infos_box()
@@ -162,4 +164,8 @@ def select_stone( selected_stone_ID ) :
     StoneEditor.set_list_quads()
     MainWindow.main.update_plot_stone()
 
+    MainWindow.main.Qcombo_quads_link.blockSignals( True )
+    MainWindow.main.Qcombo_quads_link.setCurrentIndex(liveRamp.stoneList[liveRamp.selected_stone_ID].quad_link)
+    StoneEditor.changeQuadsHooks( liveRamp.stoneList[liveRamp.selected_stone_ID].quad_link, recompute=False )
+    MainWindow.main.Qcombo_quads_link.blockSignals( False )
     

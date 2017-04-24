@@ -16,13 +16,13 @@ quadsDIC = {
     'QU5' : 12,
     'QU6' : 13
 }
-inv_quadsDIC =  {v: k for k, v in quadsDIC.iteritems()}
+inv_quadsDIC =  {v: k for k, v in quadsDIC.items()}
 
 
 def set_list_quads():
     from core import MainWindow
     from datadef import RampDef
-    from PyQt4.QtGui import QListWidgetItem
+    from PyQt5.QtWidgets import QListWidgetItem
     MainWindow.main.Qlist_Quadrupoles.clear()
     stoneID = RampDef.liveRamp.selected_stone_ID 
     
@@ -91,7 +91,7 @@ def set_magnet_value(magnetNAME, value, force_recompute=False, force_norecompute
         
 def update_stone_infos_box():
     from core import MainWindow
-    from PyQt4 import QtGui, QtCore
+    from PyQt5 import QtGui, QtCore
     from datadef import RampDef
 
     if RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].stable is True :
@@ -109,18 +109,23 @@ def update_stone_infos_box():
     MainWindow.main.Stone_Qpy.setText( "%6.4f"  %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].Qpy)
     MainWindow.main.Stone_pc.setText( "%g MeV/c" %RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].momentum )
     MainWindow.main.Stone_time.setText( "%g ms" %(RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].timing*1000) )
+
+    MainWindow.main.spinBox_stone.blockSignals( True )
     MainWindow.main.spinBox_stone.setValue( RampDef.liveRamp.selected_stone_ID )
+    MainWindow.main.spinBox_stone.blockSignals( False )
     
 
 # hooks ID are
 # 0 for no hooks
 # 1 for 1-3-5 and 2-4-6 hooked
 # 2 for 1-5 and 2-6 hooked
-def changeQuadsHooks(hookID):
-    from PyQt4 import QtGui, QtCore
+def changeQuadsHooks(hookID, recompute=True):
+    from PyQt5 import QtGui, QtCore
     from core import MainWindow
     from datadef import RampDef
 
+    RampDef.liveRamp.stoneList[RampDef.liveRamp.selected_stone_ID].quad_link = hookID
+    
     if hookID == 0 :
         MainWindow.main.Qlist_Quadrupoles.item(quadsDIC['QU1']).setBackground( QtGui.QColor( 'white' ) )
         MainWindow.main.Qlist_Quadrupoles.item(quadsDIC['QU2']).setBackground( QtGui.QColor( 'white' ) )
@@ -136,11 +141,11 @@ def changeQuadsHooks(hookID):
         MainWindow.main.Qlist_Quadrupoles.item(quadsDIC['QU4']).setBackground( QtGui.QColor( 0, 0, 255, 100 ) )
         MainWindow.main.Qlist_Quadrupoles.item(quadsDIC['QU6']).setBackground( QtGui.QColor( 0, 0, 255, 100 ) )
         QU1_k = RampDef.liveRamp.stoneList[ RampDef.liveRamp.selected_stone_ID ].quads[ quadsDIC['QU1'] ]
-        set_magnet_value( 'QU3', QU1_k)
-        set_magnet_value( 'QU5', QU1_k)
+        set_magnet_value( 'QU3', QU1_k, force_norecompute=True)
+        set_magnet_value( 'QU5', QU1_k, force_norecompute=True)
         QU2_k = RampDef.liveRamp.stoneList[ RampDef.liveRamp.selected_stone_ID ].quads[ quadsDIC['QU2'] ]
-        set_magnet_value( 'QU4', QU2_k)
-        set_magnet_value( 'QU6', QU2_k, force_recompute=True)
+        set_magnet_value( 'QU4', QU2_k, force_norecompute=True)
+        set_magnet_value( 'QU6', QU2_k, force_recompute= recompute ) 
     elif hookID == 2 : 
         MainWindow.main.Qlist_Quadrupoles.item(quadsDIC['QU1']).setBackground( QtGui.QColor( 255, 0, 0, 100 ) )
         MainWindow.main.Qlist_Quadrupoles.item(quadsDIC['QU3']).setBackground( QtGui.QColor('white') )
@@ -149,7 +154,7 @@ def changeQuadsHooks(hookID):
         MainWindow.main.Qlist_Quadrupoles.item(quadsDIC['QU4']).setBackground( QtGui.QColor('white') )
         MainWindow.main.Qlist_Quadrupoles.item(quadsDIC['QU6']).setBackground( QtGui.QColor( 0, 0, 255, 100 ) )
         QU1_k = RampDef.liveRamp.stoneList[ RampDef.liveRamp.selected_stone_ID ].quads[ quadsDIC['QU1'] ]
-        set_magnet_value( 'QU5', QU1_k)
+        set_magnet_value( 'QU5', QU1_k, force_norecompute=True)
         QU2_k = RampDef.liveRamp.stoneList[ RampDef.liveRamp.selected_stone_ID ].quads[ quadsDIC['QU2'] ]
-        set_magnet_value( 'QU6', QU2_k, force_recompute=True)
+        set_magnet_value( 'QU6', QU2_k, force_recompute= recompute ) 
     
