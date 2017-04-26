@@ -161,9 +161,8 @@ def connect_ramp_buttons() :
     main.Copy.clicked.connect( RampDef.liveRamp.copy_stone)
 
     main.CommentStone.textChanged.connect(RampDef.liveRamp.change_comment)
-
     RampDef.liveRamp.printInfos()
-    RampDef.Compute_and_set_all (RampDef.liveRamp)
+    # RampDef.Compute_and_set_all (RampDef.liveRamp)
     StoneEditor.set_list_quads()
 
     main.RampParm_particle.currentIndexChanged.connect( RampDef.liveRamp.change_particle )

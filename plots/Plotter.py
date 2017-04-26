@@ -23,7 +23,7 @@ def make_plot_ramp(plot_name, window):
     Ramp =  RampDef.liveRamp
     timings, y1, y2  = [], [], []
     for i in range(len(Ramp.stoneList)) :
-        timings.append(Ramp.stoneList[i].timing)
+        timings.append(Ramp.stoneList[i].timing*1000)
 
     
     if plot_name == 'Momentum'  :

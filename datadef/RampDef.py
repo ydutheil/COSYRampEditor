@@ -131,7 +131,6 @@ def Compute_and_set_all (ramp, compute=True) :
     MainWindow.main.RampParm_Nstones.setText( "%i"  %len(ramp.stoneList) )
     MainWindow.main.RampParm_length.setText( "%g"  %ramp.cycleLength)
     
-
     MainWindow.main.Qlist_StoneManipulator.clear()
     for i in range(len(ramp.stoneList)):
         if compute :
@@ -139,9 +138,8 @@ def Compute_and_set_all (ramp, compute=True) :
         txt = 'Stable' if ramp.stoneList[i].stable else 'Unstable'
         item = QListWidgetItem( "%i    " %i +"%g MeV/c    " %(ramp.stoneList[i].momentum)  + " at %g ms" %(ramp.stoneList[i].timing*1000) +"%8s" %txt )
         MainWindow.main.Qlist_StoneManipulator.addItem( item )
-
     MainWindow.main.update_plot_ramp()
-        
+    
 def Compute_stone_and_update (stone) :
     from opticsCALC import BmadCalc
     from datadef import StoneEditor
@@ -154,7 +152,8 @@ def select_stone( selected_stone_ID ) :
     from core import MainWindow
     from datadef import StoneEditor
 
-    liveRamp.selected_stone_ID = selected_stone_ID
+    liveRamp.selected_stone_ID = selected_stone_ID if selected_stone_ID < len( liveRamp.stoneList ) else len( liveRamp.stoneList )-1
+    
     MainWindow.main.CommentStone.setPlainText( liveRamp.stoneList[liveRamp.selected_stone_ID].comment )
     StoneEditor.update_stone_infos_box()
 
